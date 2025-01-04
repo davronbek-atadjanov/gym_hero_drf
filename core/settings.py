@@ -8,12 +8,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-6y-&+vhzac(bpt^yq5+h+8r!o!vg9(jki@8phj&ir10&^yqpro'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -28,6 +28,9 @@ INSTALLED_APPS = [
 
     # app
     'users',
+    'auth_user',
+    # package
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -67,11 +70,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'gym_hero_db',
     }
 }
 
-
+AUTH_USER_MODEL = 'users.CustomUser'
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -112,3 +115,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Gym hero API',
+    'DESCRIPTION': 'Gym hero description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://7f80-84-54-70-101.ngrok-free.app',  # Bu yerga ngrok domeningizni qo'shing
+]
